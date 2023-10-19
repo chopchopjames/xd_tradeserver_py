@@ -1,0 +1,14 @@
+OBJS=td_wrap.o
+INCLUDE=-I./ -I/usr/include/python3.8/
+
+TARGET=_TradeApi.so
+CPPFLAG=-shared -fPIC
+CC=g++
+LDLIB=-L. -litgtrader
+$(TARGET) : $(OBJS)
+	$(CC) $(CPPFLAG) $(INCLUDE) -o $(TARGET) $(OBJS) $(LDLIB)
+$(OBJS) : %.o : %.cxx
+	$(CC) -c -fPIC $(INCLUDE) $< -o $@
+clean:
+	-rm -f $(OBJS)
+	-rm -f $(TARGET)
